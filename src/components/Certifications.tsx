@@ -49,7 +49,7 @@ const Certifications = () => {
     {
       name: 'Red Hat Certified System Administrator (RHCSA)',
       issuer: 'Red Hat',
-      date: '2024',
+      date: '2025',
       icon: '🎓',
     },
   ];
