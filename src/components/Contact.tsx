@@ -76,6 +76,14 @@ const Contact = () => {
               </svg>
               <span className="hidden sm:inline">+91 78070 38478</span>
             </a>
+            <a
+              href="/sanchitmahajann.github.io/Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded transition-colors border border-primary-accent text-primary-accent bg-transparent hover:bg-primary-accent hover:text-white focus:outline-none focus:ring-2 focus:ring-primary-accent"
+            >
+              Resume
+            </a>
           </div>
 
           {/* Social Links */}

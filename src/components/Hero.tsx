@@ -17,14 +17,24 @@ const Hero = () => {
           <h2 className="text-xl md:text-2xl text-primary-accent mb-8 drop-shadow">
             Full Stack Developer
           </h2>
-          <Link
-            to="about"
-            smooth={true}
-            duration={500}
-            className="inline-block bg-secondary-accent text-white px-8 py-3 rounded-full hover:bg-primary-accent transition-colors cursor-pointer"
-          >
-            Learn More
-          </Link>
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-center mt-4">
+            <Link
+              to="about"
+              smooth={true}
+              duration={500}
+              className="inline-block bg-secondary-accent text-white px-8 py-3 rounded-full hover:bg-primary-accent transition-colors cursor-pointer"
+            >
+              Learn More
+            </Link>
+            <a
+              href="/Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-primary-accent text-white px-8 py-3 rounded-full hover:bg-secondary-accent transition-colors cursor-pointer"
+            >
+              View Resume
+            </a>
+          </div>
         </motion.div>
       </div>
     </div>
