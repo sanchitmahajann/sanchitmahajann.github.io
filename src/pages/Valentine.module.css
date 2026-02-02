@@ -1,0 +1,504 @@
+/* ═══════════════════════════════════════════════════════════
+   VALENTINE'S PAGE - A Love Letter in Code 💌
+   ═══════════════════════════════════════════════════════════ */
+
+.container {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Quicksand', 'Segoe UI', sans-serif;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BACKGROUND LAYERS
+   ═══════════════════════════════════════════════════════════ */
+
+.gradientBg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(255, 182, 193, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(255, 192, 203, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(255, 228, 225, 0.3) 0%, transparent 70%),
+    linear-gradient(135deg, 
+      #fff5f7 0%, 
+      #ffe4ec 25%, 
+      #ffd6e7 50%, 
+      #ffe8f0 75%, 
+      #fff0f5 100%
+    );
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(10deg); }
+}
+
+.floatingLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floatingHeart {
+  position: absolute;
+  filter: drop-shadow(0 2px 4px rgba(255, 100, 150, 0.3));
+}
+
+.sparkleLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.sparkle {
+  position: absolute;
+  font-size: 1rem;
+  filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.8));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ENVELOPE STAGE
+   ═══════════════════════════════════════════════════════════ */
+
+.envelopeStage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 10;
+  padding: 2rem;
+}
+
+.forYouText {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: #c71585;
+  text-shadow: 0 2px 10px rgba(255, 100, 150, 0.3);
+  margin: 0;
+}
+
+.envelopeWrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.envelopeGlow {
+  position: absolute;
+  inset: -30px;
+  background: radial-gradient(circle, rgba(255, 182, 193, 0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.envelope {
+  width: 200px;
+  height: 140px;
+  position: relative;
+  filter: drop-shadow(0 10px 30px rgba(199, 21, 133, 0.25));
+}
+
+.envelopeBody {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #fff 0%, #fff5f8 100%);
+  border-radius: 8px;
+  border: 3px solid #f8a5c2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.envelopeBody::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 2px dashed rgba(255, 150, 180, 0.4);
+  border-radius: 4px;
+}
+
+.envelopeTop {
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-top: 70px solid #f8a5c2;
+  z-index: 2;
+}
+
+.envelopeTop::after {
+  content: '';
+  position: absolute;
+  top: -68px;
+  left: -97px;
+  width: 0;
+  height: 0;
+  border-left: 97px solid transparent;
+  border-right: 97px solid transparent;
+  border-top: 68px solid #ffd1dc;
+}
+
+.heartSeal {
+  font-size: 3.5rem;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 2px 8px rgba(255, 100, 150, 0.4));
+}
+
+.tapText {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.1rem;
+  color: #db7093;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LETTER STAGE
+   ═══════════════════════════════════════════════════════════ */
+
+.letterStage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  padding: 1rem;
+  width: 100%;
+}
+
+.letterCard {
+  background: linear-gradient(180deg, #fffbfc 0%, #fff 50%, #fff9fa 100%);
+  border-radius: 20px;
+  padding: 2.5rem 3rem;
+  position: relative;
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 
+    0 25px 60px rgba(199, 21, 133, 0.15),
+    0 10px 30px rgba(255, 100, 150, 0.1),
+    inset 0 0 60px rgba(255, 240, 245, 0.5);
+  border: 2px solid rgba(255, 182, 193, 0.5);
+}
+
+.letterCard::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px dashed rgba(255, 150, 180, 0.3);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+/* Decorative corners */
+.corner {
+  position: absolute;
+  font-size: 1.5rem;
+  color: #f8a5c2;
+  opacity: 0.7;
+}
+.cornerTL { top: 15px; left: 20px; transform: rotate(-45deg); }
+.cornerTR { top: 15px; right: 20px; transform: rotate(45deg); }
+.cornerBL { bottom: 15px; left: 20px; transform: rotate(-135deg); }
+.cornerBR { bottom: 15px; right: 20px; transform: rotate(135deg); }
+
+.greeting {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.8rem;
+  color: #c71585;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(199, 21, 133, 0.2);
+}
+
+.heartDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0.8rem 0 1.2rem;
+  color: #f8a5c2;
+  font-size: 0.9rem;
+}
+
+.dividerHeart {
+  font-size: 1.4rem;
+  animation: heartbeat 1.5s ease infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.questionSection {
+  margin: 1rem 0 1.5rem;
+}
+
+.preQuestion {
+  font-size: 1.1rem;
+  color: #888;
+  margin: 0 0 1rem;
+  font-style: italic;
+}
+
+.cuteEmoji {
+  font-size: 3rem;
+  margin: 0.8rem 0;
+  display: block;
+}
+
+.mainQuestion {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.2rem;
+  color: #db7093;
+  margin: 1rem 0 0;
+  line-height: 1.3;
+}
+
+/* Buttons */
+.buttonsArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+  min-height: 70px;
+  position: relative;
+  padding-right: 140px; /* Reserve space for No button */
+}
+
+.yesBtn {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  font-size: 1.3rem;
+  padding: 0.9rem 2.2rem;
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff4081 50%, #f50057 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.2s ease;
+}
+
+.yesBtn::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  background: linear-gradient(135deg, #ff8fab, #ff4081, #ff6b9d);
+  border-radius: 50px;
+  z-index: -1;
+  opacity: 0.5;
+  filter: blur(8px);
+}
+
+.noBtn {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.7rem 1.8rem;
+  background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%);
+  color: #777;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s ease;
+}
+
+.noBtn:hover {
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+}
+
+.hint {
+  font-size: 0.85rem;
+  color: #b0b0b0;
+  margin: 1.2rem 0 0;
+  font-style: italic;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CELEBRATION STAGE
+   ═══════════════════════════════════════════════════════════ */
+
+.celebrationStage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  padding: 1rem;
+  width: 100%;
+}
+
+.confettiLayer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.confettiPiece {
+  position: absolute;
+}
+
+.celebrationCard {
+  background: linear-gradient(180deg, #fffbfc 0%, #fff 100%);
+  border-radius: 24px;
+  padding: 2.5rem 3rem;
+  text-align: center;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 
+    0 30px 60px rgba(199, 21, 133, 0.2),
+    0 15px 35px rgba(255, 100, 150, 0.15),
+    inset 0 0 50px rgba(255, 240, 245, 0.5);
+  border: 2px solid rgba(255, 182, 193, 0.5);
+  position: relative;
+  z-index: 10;
+}
+
+.celebEmojis {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.yayTitle {
+  font-family: 'Dancing Script', cursive;
+  font-size: 4rem;
+  color: #c71585;
+  margin: 0;
+  text-shadow: 
+    0 4px 15px rgba(199, 21, 133, 0.3),
+    0 0 40px rgba(255, 100, 150, 0.2);
+}
+
+.dancingHearts {
+  font-size: 3rem;
+  margin: 1rem 0;
+}
+
+.loveMessage {
+  margin: 1.5rem 0;
+}
+
+.knewIt {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  color: #db7093;
+  margin: 0;
+}
+
+.messageDivider {
+  font-size: 1.5rem;
+  margin: 0.8rem 0;
+  animation: heartbeat 1.5s ease infinite;
+}
+
+.cantWait {
+  font-size: 1.2rem;
+  color: #888;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.finalHearts {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.4rem;
+  color: #c71585;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(255, 150, 180, 0.4);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 500px) {
+  .forYouText {
+    font-size: 1.6rem;
+  }
+
+  .envelope {
+    width: 160px;
+    height: 112px;
+  }
+
+  .envelopeTop {
+    border-left-width: 80px;
+    border-right-width: 80px;
+    border-top-width: 56px;
+  }
+
+  .envelopeTop::after {
+    top: -54px;
+    left: -78px;
+    border-left-width: 78px;
+    border-right-width: 78px;
+    border-top-width: 54px;
+  }
+
+  .heartSeal {
+    font-size: 2.8rem;
+  }
+
+  .letterCard,
+  .celebrationCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .greeting {
+    font-size: 2.2rem;
+  }
+
+  .mainQuestion {
+    font-size: 1.8rem;
+  }
+
+  .cuteEmoji {
+    font-size: 2.5rem;
+  }
+
+  .yesBtn {
+    font-size: 1.1rem;
+    padding: 0.8rem 1.8rem;
+  }
+
+  .noBtn {
+    font-size: 1rem;
+    padding: 0.6rem 1.4rem;
+  }
+
+  .yayTitle {
+    font-size: 3rem;
+  }
+
+  .dancingHearts {
+    font-size: 2.5rem;
+  }
+
+  .knewIt {
+    font-size: 1.5rem;
+  }
+
+  .corner {
+    display: none;
+  }
+}
