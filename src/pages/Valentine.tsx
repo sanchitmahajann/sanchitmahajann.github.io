@@ -10,8 +10,8 @@ const MUSIC_URL = '/those-eyes.mp3';
 const NO_MOVE_BOUNDS = {
   minX: 20,
   maxX: 160,
-  minY: -90,
-  maxY: 90,
+  minY: -120,
+  maxY: 30,
 };
 const MIN_NO_DISTANCE = 45;
 const MAX_NO_ATTEMPTS = 8;
