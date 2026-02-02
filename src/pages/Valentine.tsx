@@ -173,12 +173,112 @@ const Valentine = () => {
               animate={{ y: isEnvelopeOpen ? 100 : 0 }}
               transition={{ type: 'spring', stiffness: 60, damping: 14 }}
             >
-              {/* Envelope body */}
-              <div className={styles.envBody}>
-                <div className={styles.envInner} />
+              {/* 1) Back layer (inside) */}
+              <div className={styles.envBack} />
+
+              {/* 2) Letters sit between back and front */}
+              <div className={styles.lettersGroup}>
+                {/* ═══ FIRST LETTER (Question) ═══ */}
+                <motion.div
+                  className={styles.letter}
+                  animate={{
+                    y: showFirstLetter ? -380 : 0,
+                    opacity: (showFirstLetter || letterSlidingBack) ? 1 : 0,
+                  }}
+                  transition={{ 
+                    type: 'spring', 
+                    stiffness: 50, 
+                    damping: 13,
+                    delay: showFirstLetter ? 0.3 : 0,
+                  }}
+                  style={{ pointerEvents: showFirstLetter ? 'auto' : 'none' }}
+                >
+                  <div className={styles.letterContent}>
+                    <h1 className={styles.hi}>Hey Vandita!</h1>
+                    <div className={styles.divider}>── 💝 ──</div>
+                    <p className={styles.sub}>I have a very important question...</p>
+                    <div className={styles.emoji}>🥺👉👈</div>
+                    <h2 className={styles.mainQ}>Will you be my Valentine?</h2>
+                    
+                    <div className={styles.btns}>
+                      <motion.button
+                        className={styles.yesBtn}
+                        onClick={handleYes}
+                        whileHover={{ scale: 1.08 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        Yes! 💖
+                      </motion.button>
+                      <motion.button
+                        className={styles.noBtn}
+                        onMouseEnter={handleNoHover}
+                        onTouchStart={handleNoHover}
+                        initial={{ x: 0, y: 0 }}
+                        animate={{ x: noPos.x, y: noPos.y }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                        style={{ willChange: 'transform' }}
+                      >
+                        {noMsgs[hoverCount % noMsgs.length]}
+                      </motion.button>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* ═══ SECOND LETTER (Celebration) ═══ */}
+                <motion.div
+                  className={styles.letter}
+                  initial={{ y: 0, opacity: 0 }}
+                  animate={{
+                    y: showCelebLetter ? -380 : 0,
+                    opacity: showCelebLetter ? 1 : 0,
+                  }}
+                  transition={{ 
+                    type: 'spring', 
+                    stiffness: 50, 
+                    damping: 13,
+                    delay: showCelebLetter ? 0.3 : 0,
+                  }}
+                >
+                  <div className={styles.letterContent}>
+                    <motion.h1 
+                      className={styles.celebTitle}
+                      animate={{ rotate: [-2, 2, -2] }}
+                      transition={{ duration: 0.4, repeat: Infinity }}
+                    >
+                      YIPEEEEEE 💖
+                    </motion.h1>
+                    
+                    <motion.div 
+                      className={styles.celebEmoji}
+                      animate={{ y: [0, -10, 0] }}
+                      transition={{ duration: 0.5, repeat: Infinity }}
+                    >
+                      🎉 🥳 🎉
+                    </motion.div>
+                    
+                    <motion.div 
+                      className={styles.celebDance}
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 0.6, repeat: Infinity }}
+                    >
+                      💃 ❤️‍🔥 🕺
+                    </motion.div>
+                    
+                    <div className={styles.celebMsg}>
+                      <p className={styles.celebText}>I knew you'd say yes, Bhondu!</p>
+                      <span className={styles.celebHeart}>💝</span>
+                      <p className={styles.celebSub}>Can't wait to spend Valentine's Day with you!</p>
+                    </div>
+                    
+                    <p className={styles.sig}>💖 Forever yours, Sanchit 💖</p>
+                  </div>
+                </motion.div>
               </div>
 
-              {/* Flap - rotates open */}
+              {/* 3) Front pocket covers lower part of letters */}
+              <div className={styles.envFront} />
+
+              {/* 4) Flap - rotates open */}
               <motion.div
                 className={styles.flap}
                 animate={{ 
@@ -189,106 +289,6 @@ const Valentine = () => {
               >
                 <div className={styles.flapPattern} />
                 <div className={styles.seal}>❤️</div>
-              </motion.div>
-
-              {/* ═══ FIRST LETTER (Question) ═══ */}
-              <motion.div
-                className={styles.letter}
-                animate={{
-                  y: showFirstLetter ? -380 : 0,
-                  opacity: (showFirstLetter || letterSlidingBack) ? 1 : 0,
-                }}
-                transition={{ 
-                  type: 'spring', 
-                  stiffness: 50, 
-                  damping: 13,
-                  delay: showFirstLetter ? 0.3 : 0,
-                }}
-                style={{ 
-                  pointerEvents: showFirstLetter ? 'auto' : 'none',
-                  zIndex: showCelebLetter ? 5 : 15,
-                }}
-              >
-                <div className={styles.letterContent}>
-                  <h1 className={styles.hi}>Hey Vandita!</h1>
-                  <div className={styles.divider}>── 💝 ──</div>
-                  <p className={styles.sub}>I have a very important question...</p>
-                  <div className={styles.emoji}>🥺👉👈</div>
-                  <h2 className={styles.mainQ}>Will you be my Valentine?</h2>
-                  
-                  <div className={styles.btns}>
-                    <motion.button
-                      className={styles.yesBtn}
-                      onClick={handleYes}
-                      whileHover={{ scale: 1.08 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      Yes! 💖
-                    </motion.button>
-                    <motion.button
-                      className={styles.noBtn}
-                      onMouseEnter={handleNoHover}
-                      onTouchStart={handleNoHover}
-                      initial={{ x: 0, y: 0 }}
-                      animate={{ x: noPos.x, y: noPos.y }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                      style={{ willChange: 'transform' }}
-                    >
-                      {noMsgs[hoverCount % noMsgs.length]}
-                    </motion.button>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* ═══ SECOND LETTER (Celebration) ═══ */}
-              <motion.div
-                className={styles.letter}
-                initial={{ y: 0, opacity: 0 }}
-                animate={{
-                  y: showCelebLetter ? -380 : 0,
-                  opacity: showCelebLetter ? 1 : 0,
-                }}
-                transition={{ 
-                  type: 'spring', 
-                  stiffness: 50, 
-                  damping: 13,
-                  delay: showCelebLetter ? 0.3 : 0,
-                }}
-                style={{ zIndex: showCelebLetter ? 15 : 5 }}
-              >
-                <div className={styles.letterContent}>
-                  <motion.h1 
-                    className={styles.celebTitle}
-                    animate={{ rotate: [-2, 2, -2] }}
-                    transition={{ duration: 0.4, repeat: Infinity }}
-                  >
-                    YIPEEEEEE 💖
-                  </motion.h1>
-                  
-                  <motion.div 
-                    className={styles.celebEmoji}
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 0.5, repeat: Infinity }}
-                  >
-                    🎉 🥳 🎉
-                  </motion.div>
-                  
-                  <motion.div 
-                    className={styles.celebDance}
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 0.6, repeat: Infinity }}
-                  >
-                    💃 ❤️‍🔥 🕺
-                  </motion.div>
-                  
-                  <div className={styles.celebMsg}>
-                    <p className={styles.celebText}>I knew you'd say yes, Bhondu!</p>
-                    <span className={styles.celebHeart}>💝</span>
-                    <p className={styles.celebSub}>Can't wait to spend Valentine's Day with you!</p>
-                  </div>
-                  
-                  <p className={styles.sig}>💖 Forever yours, Sanchit 💖</p>
-                </div>
               </motion.div>
             </motion.div>
           </div>

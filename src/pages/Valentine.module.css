@@ -99,6 +99,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: visible;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -111,29 +112,36 @@
   width: 100%;
   height: 180px;
   filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.12));
+  overflow: visible;
 }
 
-/* Envelope body - white pocket */
-.envBody {
+/* Back layer (inside of envelope) */
+.envBack {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
+  background: #f7f7f7;
+  border-radius: 4px 4px 12px 12px;
+  z-index: 1;
+}
+
+/* Letters group sits between back and front */
+.lettersGroup {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: visible;
+}
+
+/* Front pocket (covers lower part of letters) */
+.envFront {
+  position: absolute;
+  inset: 0;
   background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
   border-radius: 4px 4px 12px 12px;
-  border: 2px solid #e8e8e8;
-  overflow: hidden;
-}
-
-/* Inner depth/shadow effect */
-.envInner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.03) 0%, transparent 100%);
+  z-index: 10;
+  pointer-events: none;
+  clip-path: polygon(0 0, 50% 100px, 100% 0, 100% 100%, 0 100%);
+  box-shadow: inset 0 0 0 2px #e8e8e8;
 }
 
 /* Flap - triangular top that opens */
@@ -189,6 +197,7 @@
   left: 0;
   right: 0;
   z-index: 15; /* Between envelope body and flap */
+  overflow: visible;
 }
 
 .letterContent {
@@ -199,6 +208,7 @@
   text-align: center;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   border: 1px solid #f0e0e5;
+  overflow: visible;
 }
 
 .hi {
@@ -242,6 +252,7 @@
   position: relative;
   min-height: 50px;
   padding-right: 90px;
+  overflow: visible;
 }
 
 .yesBtn {
@@ -269,6 +280,7 @@
   position: absolute;
   right: 0;
   white-space: nowrap;
+  z-index: 20;
   will-change: transform;
   transform: translateZ(0);
   backface-visibility: hidden;
