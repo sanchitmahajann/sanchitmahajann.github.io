@@ -104,7 +104,7 @@ const Valentine = () => {
   };
 
   // Playful messages when No button is hovered
-  const noButtonMessages = ['Aisa mat krow 🥺', 'Pwease? 💔', 'Pretty Please? With a cherry on top!', 'Badtameez', 'Chalti ban', 'Tryhard', 'Gandi ladki', 'At this point aap bhaw kha rahi ho'];
+  const noButtonMessages = ['No', 'Aisa mat krow 🥺', 'Pwease? 💔', 'Pretty Please? With a cherry on top!', 'Badtameez', 'Chalti ban', 'Tryhard', 'Gandi ladki', 'At this point aap bhaw kha rahi ho'];
 
   return (
     <div className={styles.container}>
