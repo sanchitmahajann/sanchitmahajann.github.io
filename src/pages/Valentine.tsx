@@ -342,16 +342,6 @@ const Valentine = () => {
                   {noButtonMessages[hoverCount % noButtonMessages.length]}
                 </motion.button>
               </motion.div>
-
-              {hoverCount > 2 && (
-                <motion.p 
-                  className={styles.hint}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
-                  (the No button is shy... just like me asking you this 🙈)
-                </motion.p>
-              )}
             </motion.div>
           </motion.div>
         )}
