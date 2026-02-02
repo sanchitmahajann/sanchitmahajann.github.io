@@ -3,18 +3,40 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styles from './Valentine.module.css';
 
 type Stage = 'envelope' | 'opening' | 'letter' | 'transition' | 'celebration';
+type Position = { x: number; y: number };
 
 const MUSIC_URL = '/those-eyes.mp3';
 
-const ESCAPE_POSITIONS = [
-  { x: 100, y: -60 }, { x: 130, y: 20 }, { x: 90, y: 70 },
-  { x: 140, y: -30 }, { x: 110, y: 50 }, { x: 150, y: 0 },
-];
+const NO_MOVE_BOUNDS = {
+  minX: 40,
+  maxX: 220,
+  minY: -90,
+  maxY: 90,
+};
+const MIN_NO_DISTANCE = 45;
+const MAX_NO_ATTEMPTS = 8;
+
+const randomBetween = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
+const getRandomNoPosition = (prev: Position): Position => {
+  let next = prev;
+  for (let i = 0; i < MAX_NO_ATTEMPTS; i += 1) {
+    const candidate = {
+      x: randomBetween(NO_MOVE_BOUNDS.minX, NO_MOVE_BOUNDS.maxX),
+      y: randomBetween(NO_MOVE_BOUNDS.minY, NO_MOVE_BOUNDS.maxY),
+    };
+    if (Math.hypot(candidate.x - prev.x, candidate.y - prev.y) >= MIN_NO_DISTANCE) {
+      return candidate;
+    }
+    next = candidate;
+  }
+  return next;
+};
 
 const Valentine = () => {
   const [stage, setStage] = useState<Stage>('envelope');
-  const [noPos, setNoPos] = useState({ x: 0, y: 0 });
-  const [escIdx, setEscIdx] = useState(0);
+  const [noPos, setNoPos] = useState<Position>({ x: 0, y: 0 });
   const [hoverCount, setHoverCount] = useState(0);
   const [musicOn, setMusicOn] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -79,9 +101,7 @@ const Valentine = () => {
 
   const handleNoHover = () => {
     setHoverCount(h => h + 1);
-    const next = (escIdx + 1) % ESCAPE_POSITIONS.length;
-    setEscIdx(next);
-    setNoPos(ESCAPE_POSITIONS[next]);
+    setNoPos(prev => getRandomNoPosition(prev));
   };
 
   const noMsgs = ['No', 'Aisa mat kro 🥺', 'Pwease? 💔', 'Pretty Please?', 'Badtameez', 'Bhaw kha rhi ho'];
@@ -182,7 +202,7 @@ const Valentine = () => {
                 <motion.div
                   className={styles.letter}
                   animate={{
-                    y: showFirstLetter ? -380 : 0,
+                    y: showFirstLetter ? -300 : 0,
                     opacity: (showFirstLetter || letterSlidingBack) ? 1 : 0,
                   }}
                   transition={{ 
@@ -209,17 +229,19 @@ const Valentine = () => {
                       >
                         Yes! 💖
                       </motion.button>
-                      <motion.button
-                        className={styles.noBtn}
-                        onMouseEnter={handleNoHover}
-                        onTouchStart={handleNoHover}
-                        initial={{ x: 0, y: 0 }}
-                        animate={{ x: noPos.x, y: noPos.y }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                        style={{ willChange: 'transform' }}
-                      >
-                        {noMsgs[hoverCount % noMsgs.length]}
-                      </motion.button>
+                      <div className={styles.noBtnWrap}>
+                        <motion.button
+                          className={styles.noBtn}
+                          onMouseEnter={handleNoHover}
+                          onTouchStart={handleNoHover}
+                          initial={{ x: 0, y: 0 }}
+                          animate={{ x: noPos.x, y: noPos.y }}
+                          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                          style={{ willChange: 'transform' }}
+                        >
+                          {noMsgs[hoverCount % noMsgs.length]}
+                        </motion.button>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -229,7 +251,7 @@ const Valentine = () => {
                   className={styles.letter}
                   initial={{ y: 0, opacity: 0 }}
                   animate={{
-                    y: showCelebLetter ? -380 : 0,
+                    y: showCelebLetter ? -300 : 0,
                     opacity: showCelebLetter ? 1 : 0,
                   }}
                   transition={{ 
