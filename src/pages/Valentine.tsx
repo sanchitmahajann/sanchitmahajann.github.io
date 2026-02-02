@@ -8,8 +8,8 @@ type Position = { x: number; y: number };
 const MUSIC_URL = '/those-eyes.mp3';
 
 const NO_MOVE_BOUNDS = {
-  minX: 40,
-  maxX: 220,
+  minX: 20,
+  maxX: 160,
   minY: -90,
   maxY: 90,
 };
@@ -19,11 +19,19 @@ const MAX_NO_ATTEMPTS = 8;
 const randomBetween = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
+const getMaxNoX = () => {
+  if (typeof window === 'undefined') return NO_MOVE_BOUNDS.maxX;
+  const dynamic = Math.floor(window.innerWidth * 0.18);
+  return Math.max(60, Math.min(NO_MOVE_BOUNDS.maxX, dynamic));
+};
+
 const getRandomNoPosition = (prev: Position): Position => {
   let next = prev;
   for (let i = 0; i < MAX_NO_ATTEMPTS; i += 1) {
+    const maxX = getMaxNoX();
+    const minX = Math.min(NO_MOVE_BOUNDS.minX, maxX);
     const candidate = {
-      x: randomBetween(NO_MOVE_BOUNDS.minX, NO_MOVE_BOUNDS.maxX),
+      x: randomBetween(minX, maxX),
       y: randomBetween(NO_MOVE_BOUNDS.minY, NO_MOVE_BOUNDS.maxY),
     };
     if (Math.hypot(candidate.x - prev.x, candidate.y - prev.y) >= MIN_NO_DISTANCE) {
