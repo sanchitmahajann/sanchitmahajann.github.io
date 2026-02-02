@@ -1,8 +1,11 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './Valentine.module.css';
 
 type Stage = 'envelope' | 'letter' | 'celebration';
+
+// "Those Eyes" by New West - You'll need to add the audio file to public folder
+const MUSIC_URL = '/those-eyes.mp3';
 
 // Predefined escape positions that avoid the Yes button
 const ESCAPE_POSITIONS = [
@@ -21,6 +24,8 @@ const Valentine = () => {
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
   const [escapeIndex, setEscapeIndex] = useState(0);
   const [hoverCount, setHoverCount] = useState(0);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   // Load Google Fonts
   useEffect(() => {
@@ -65,8 +70,29 @@ const Valentine = () => {
     })),
   []);
 
-  const handleEnvelopeClick = () => setStage('letter');
+  const handleEnvelopeClick = () => {
+    setStage('letter');
+    // Start music on first interaction
+    if (audioRef.current && !isMusicPlaying) {
+      audioRef.current.volume = 0.4;
+      audioRef.current.play().then(() => {
+        setIsMusicPlaying(true);
+      }).catch(console.error);
+    }
+  };
+
   const handleYesClick = () => setStage('celebration');
+
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isMusicPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play().catch(console.error);
+      }
+      setIsMusicPlaying(!isMusicPlaying);
+    }
+  };
 
   const handleNoHover = () => {
     setHoverCount(prev => prev + 1);
@@ -82,6 +108,23 @@ const Valentine = () => {
 
   return (
     <div className={styles.container}>
+      {/* Background Music */}
+      <audio ref={audioRef} src={MUSIC_URL} loop />
+
+      {/* Music Toggle Button */}
+      <motion.button
+        className={styles.musicToggle}
+        onClick={toggleMusic}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        title={isMusicPlaying ? 'Pause music' : 'Play music'}
+      >
+        {isMusicPlaying ? '🎵' : '🔇'}
+      </motion.button>
+
       {/* Animated gradient background */}
       <div className={styles.gradientBg} />
       
